@@ -1,35 +1,16 @@
 require 'coeffs.rb'
+require 'read.rb'
 
 MIN_NUMBER_OF_COMMON_RATED = 4
 
-#DATA_DIR = '/data/netflix'
-DATA_DIR = 'test_data'
-
-def read_all_movie_info
-	File.readlines(DATA_DIR + '/movie_titles.txt').collect do |line|
-		id,year,name = line.chomp.split(',')
-		[id.to_i, name]
-	end
-end
-
-def read_movie_ratings mid
-	filename = sprintf("/training_set/mv_%07d.txt",mid)
-	lines = File.readlines(DATA_DIR + filename)
-	lines.shift # unless header line
-	lines.collect do |line|
-		user,rating,date = line.chomp.split(',')	
-		[ user.to_i, rating.to_i ]
-	end	
-end
-
 puts "parsing movie info"
-movies_info = read_all_movie_info
+movies_info = Read.all_movie_info
 movies_ids = movies_info.collect { |minfo| minfo[0] }
 
 puts "building user => movie => rating hash"
 user_movie_rating = {}
 movies_ids.each do |mid|
-	movie_ratings = read_movie_ratings mid
+	movie_ratings = Read.movie_ratings mid
 	movie_ratings.each do |rating|
 		uid, rating = rating
 		user_movie_rating[uid] ||= {}
