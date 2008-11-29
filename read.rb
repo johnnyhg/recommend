@@ -13,7 +13,7 @@ module Read
 	def self.movie_ratings mid
 		filename = sprintf("/training_set/mv_%07d.txt",mid)
 		lines = File.readlines(DATA_DIR + filename)
-		lines.shift # unless header line
+		lines.shift # useless header line
 		lines.collect do |line|
 			user,rating,date = line.chomp.split(',')	
 			[ user.to_i, rating.to_i ]
