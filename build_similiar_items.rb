@@ -6,9 +6,6 @@ require 'movies'
 
 MIN_NUMBER_OF_COMMON_RATED = 4
 MAX_SIMILIAR_ITEMS = 3
-
-
-
 DATA_DIR = 'test_data_small'
 
 puts "parsing movie info"
