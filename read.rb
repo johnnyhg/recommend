@@ -1,9 +1,6 @@
 module Read
 
-#	DATA_DIR = '/data/netflix'
-#	DATA_DIR = 'test_data_small'
-
-	def self.all_movie_info
+	def self.all_movie_info 
 		info = {}
 		File.readlines(DATA_DIR + '/movie_titles.txt').collect do |line|
 			id,year,name = line.chomp.split(',')
