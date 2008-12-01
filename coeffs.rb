@@ -4,7 +4,6 @@ module Coeff
 
 	def self.common ha, hb
 		common_keys = Set.new(ha.keys).intersection Set.new(hb.keys)
-		puts "common_keys = #{common_keys.inspect}"
 		a=[]; b=[]
 		common_keys.each do |k| 
 			a << ha[k]
