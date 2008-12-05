@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'rbtree'
+
 class Movies
 	attr_reader :movies
 
