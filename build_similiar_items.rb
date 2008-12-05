@@ -17,7 +17,7 @@ class Similiarity
 			raise "no idx file for #{idx_file_name}" if idx_files.empty?
 			raise "more than one file matched #{idx_file_name}" if idx_files.size > 1
 			hash = Serialise.read idx_files.first
-			puts "idx_file_name #{idx_file_name} hash #{hash.inspect}"
+			#puts "idx_file_name #{idx_file_name} hash #{hash.inspect}"
 			hash
 		end
 	end
@@ -33,7 +33,7 @@ class Similiarity
 				m1_ratings, m2_ratings = Coeff.common m1_all_ratings, m2_all_ratings
 				pearson_coeff = Coeff.pearson_coeff m1_ratings, m2_ratings
 				db.update k1, k2, pearson_coeff
-				puts "idx1key #{k1} idx2key #{k2} pearson_coeff #{pearson_coeff}"				
+				#puts "idx1key #{k1} idx2key #{k2} pearson_coeff #{pearson_coeff}"				
 			end
 		end
 		db.close()
