@@ -3,9 +3,9 @@
 # supports up to 500,000 bits
 
 class BigBitSet
-
-  NUM_SIZE = 100000
-  NUM_NUMS = 5
+	
+  NUM_SIZE = (2**16)-1
+  NUM_NUMS = 8
 
 	attr_accessor :num
 
@@ -13,18 +13,43 @@ class BigBitSet
 		@num = [0] * NUM_NUMS
 	end
 
+	def capacity
+		NUM_SIZE * NUM_NUMS
+	end
+
 	def set_bits bits
 		bits.each { |b| set_bit b }
+		nil
 	end
 
 	def set_bit bit
 		idx = bit / NUM_SIZE
 		offset = bit % NUM_SIZE
 		@num[idx] |= (1 << offset)
+		nil
+	end
+
+	def unset_bits bits
+		bits.each { |b| unset_bit b }
+		nil
+	end
+
+	def unset_bit bit
+		idx = bit / NUM_SIZE
+		offset = bit % NUM_SIZE
+		@num[idx] &= ~(1 << offset)
+		nil
 	end
 
 	def dump
-		@num.each { |n| printf "%x\n", n }
+		@num.each { |n| puts n }#printf "%x\n", n }
+	end
+
+	def any_bits_common_with other
+		(0...NUM_NUMS).each do |idx| 
+			return true unless (@num[idx] & other.num[idx]==0)
+		end	
+		return false
 	end
 
 	def num_bits_set
