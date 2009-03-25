@@ -7,7 +7,7 @@ module Read
 		File.open(DATA_DIR + '/movie_titles.txt').each do |line|				
 			id,year,name = line.chomp.split(',')
 			info[id.to_i] = name
-		end
+		end.close
 		info
 	end
 
@@ -17,7 +17,8 @@ module Read
 		File.open(DATA_DIR + filename).each do |line|				
 			line =~ /(.*),/
 			bitset.set_bit $1.to_i
-		end
+		end.close
+		bitset
 	end
 
 	def self.movie_ratings mid
@@ -26,7 +27,7 @@ module Read
 		File.open(DATA_DIR + filename).each do |line|				
 			user,rating,date = line.chomp.split(',')	
 			user_to_rating[user.to_i] = rating.to_i
-		end	
+		end.close
 		user_to_rating
 	end
 

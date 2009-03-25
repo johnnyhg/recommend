@@ -1,13 +1,12 @@
+#!/usr/bin/env ruby
 require 'read'
 require 'movies'
-require 'consts'
+require 'serialise'
 require 'coeffs'
 require 'db'
 
 MIN_NUMBER_OF_COMMON_RATED = 4
 MAX_SIMILIAR_ITEMS = 3
-
-
 
 class Similiarity 
 	def read_index i1, i2
@@ -28,7 +27,7 @@ class Similiarity
 		@idx1.keys.each do |k1|
 			m1_all_ratings = @idx1[k1]
 			@idx2.keys.each do |k2|
-				next unless k1 < k2
+				next if k1 >= k2
 				m2_all_ratings = @idx2[k2]
 				m1_ratings, m2_ratings = Coeff.common m1_all_ratings, m2_all_ratings
 				pearson_coeff = Coeff.pearson_coeff m1_ratings, m2_ratings
