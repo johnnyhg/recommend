@@ -12,7 +12,7 @@ class Db
 		mid1, mid2 = mid2, mid1 if mid1 > mid2
 		query = "insert into similarity (mid1,mid2,coeff) values (#{mid1},#{mid2},#{similiarity});"
 		#puts "Q #{query}"
-		#@db.query(query)
+		@db.query(query)
 	end
 
 	def close
