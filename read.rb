@@ -1,4 +1,5 @@
 require 'consts'
+require 'set'
 
 module Read
 
@@ -11,15 +12,15 @@ module Read
 		info
 	end
 
-	def self.users_given_ratings_for_movie mid
-		filename = sprintf("/training_set/mv_%07d.txt",mid)
-		bitset = BigBitSet.new
-		File.open(DATA_DIR + filename).each do |line|				
-			line =~ /(.*),/
-			bitset.set_bit $1.to_i
-		end.close
-		bitset
-	end
+    def self.users_given_ratings_for_movie mid
+        ids = Set.new
+        filename = sprintf("/training_set/mv_%07d.txt",mid)
+        File.open(DATA_DIR + filename).each do |line|
+            line =~ /(.*),/
+            ids << $1.to_i
+        end.close
+        ids
+    end
 
 	def self.movie_ratings mid
 		filename = sprintf("/training_set/mv_%07d.txt",mid)
