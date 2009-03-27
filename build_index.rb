@@ -1,17 +1,22 @@
 require 'read'
 require 'consts'
+require 'serialise'
+
+# builds movie -> user -> raing hash for a slice of all movies 
 
 if ARGV.length==2
 	CHUNK, NUM_CHUNKS = ARGV.map { |a| a.to_i }
-else
+elsif ARGV.length==0
 	CHUNK = NUM_CHUNKS = 1
+else
+	raise "build_index.tb CHUCK NUM_CHUNKS"
 end
 
 puts "parsing movie info"
 movies_info = Read.all_movie_info
 movies_ids = movies_info.keys.chunk(CHUNK, NUM_CHUNKS)
 
-movies_ids = movies_ids.slice(0,100) # HACK!
+#movies_ids = movies_ids.slice(0,100) # HACK!
 
 puts "building movie => user => rating hash"
 movie_user_rating = {}
