@@ -1,8 +1,5 @@
 
-#DATA_DIR = 'test_data'
-#DATA_DIR = 'test_data_small'
-#DATA_DIR = 'test_data_medium'
-DATA_DIR = '/data/netflix'
+DATA_DIR = 'test_data'
 
 INDEX_FILE_PREFIX = "movie_user_rating_idx_"
 
