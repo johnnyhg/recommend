@@ -1,20 +1,21 @@
 
 module Coeff
 
+    # a,b = [idx,rating, idx,rating, idx,rating]
+    # idxes are sorted
 	def self.pearson_coeff a, b
-		raise [a.size,b.size] unless a.size == b.size
 		return 0 if a.empty?
 
-        n = a.size-1
         a_idx = b_idx = 0
         a_uid, b_uid = a[a_idx], b[b_idx]
 
         sum_a = sum_b = sum_a_sq = sum_b_sq = product_sum = 0.to_f
 
+        num_common = 0
         continue = true
         while continue do
-            puts "a_idx=#{a_idx} b_idx=#{b_idx}"
             if a_uid == b_uid
+                # indexes match, this pair should contribute
                 a_rating = a[a_idx+1]
                 b_rating = b[b_idx+1]
                 sum_a += a_rating
@@ -24,28 +25,31 @@ module Coeff
                 product_sum += a_rating * b_rating
                 a_idx += 2
                 b_idx += 2
+                num_common += 1
                 a_uid, b_uid = a[a_idx], b[b_idx]
-                continue = a_idx <= n
+                continue = a_idx < a.size && b_idx < b.size
             elsif a_uid < b_uid
+                # 'pop' entry from a list
                 a_idx += 2
                 a_uid = a[a_idx]
-                continue = a_idx <= n
+                continue = a_idx < a.size
             else # b_uid < a_uid
+                # 'pop' entry from b list
                 b_idx += 2
                 b_uid = b[b_idx]
-                continue = b_idx <= n
+                continue = b_idx < b.size
             end
         end
 
-        puts "sum_a=#{sum_a} sum_b=#{sum_b} sum_a_sq=#{sum_a_sq} sum_b_sq=#{sum_b_sq} product_sum=#{product_sum}"
+        return 0 if num_common == 0
 
-		n = a.size
-		pa = sum_a_sq - (sum_a * sum_a / n)
-		pb = sum_b_sq - (sum_b * sum_b / n)
+		pa = sum_a_sq - (sum_a * sum_a / num_common)
+		pb = sum_b_sq - (sum_b * sum_b / num_common)
 		denominator = Math.sqrt(pa * pb)
+
 		return 0 if	denominator == 0
 
-		numerator = product_sum - (sum_a * sum_b / n)
+		numerator = product_sum - (sum_a * sum_b / num_common)
 		numerator / denominator
 	end
 
