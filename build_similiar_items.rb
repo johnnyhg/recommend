@@ -22,7 +22,6 @@ class Similiarity
 	end
 
 	def build_similiarity
-#		@movies = Movies.new
 		db = Db.new()
 		@idx1.keys.each do |k1|
 			m1_all_ratings = @idx1[k1]
