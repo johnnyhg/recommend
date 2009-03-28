@@ -24,12 +24,13 @@ module Read
 
 	def self.movie_ratings mid
 		filename = sprintf("/training_set/mv_%07d.txt",mid)
-		user_to_rating = {}
+		user_and_rating = []
 		File.open(DATA_DIR + filename).each do |line|				
 			user,rating,date = line.chomp.split(',')	
-			user_to_rating[user.to_i] = rating.to_i
+			user_and_rating << user.to_i
+            user_and_rating << rating.to_i
 		end.close
-		user_to_rating
+		user_and_rating
 	end
 
 end

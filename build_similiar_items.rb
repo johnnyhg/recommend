@@ -27,8 +27,7 @@ class Similiarity
 			m1_all_ratings = @idx1[k1]
 			@idx2.keys.each do |k2|
 				next if k1 >= k2
-				m2_all_ratings = @idx2[k2]
-				m1_ratings, m2_ratings = Coeff.common m1_all_ratings, m2_all_ratings
+				m2_all_ratings = @idx2[k2]				
 				pearson_coeff = Coeff.pearson_coeff m1_ratings, m2_ratings
 				db.update k1, k2, pearson_coeff
 				#puts "idx1key #{k1} idx2key #{k2} pearson_coeff #{pearson_coeff}"				
