@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'read'
-require 'movies'
 require 'serialise'
 require 'coeffs'
 require 'db'
@@ -28,7 +27,7 @@ class Similiarity
 			@idx2.keys.each do |k2|
 				next if k1 >= k2
 				m2_all_ratings = @idx2[k2]				
-				pearson_coeff = Coeff.pearson_coeff m1_ratings, m2_ratings
+				pearson_coeff = Coeff.pearson_coeff m1_all_ratings, m2_all_ratings
 				db.update k1, k2, pearson_coeff
 				#puts "idx1key #{k1} idx2key #{k2} pearson_coeff #{pearson_coeff}"				
 			end
