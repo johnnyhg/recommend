@@ -40,31 +40,31 @@ h3. build indexes
 for small datasets it's easy
 
 generate index
-<code>
+<pre>
 bash> ruby build_index.rb
-</code>
+</pre>
 
 populate similiarity table in db with all the combos
-<code>
+<pre>
 bash> ruby build_similiar_items.rb
-</code>
+</pre>
 
 for datasets that are two big to fit into memory need to break index up into pieces such
 that two pieces fit into memory for comparison
 
 eg break into 8 parts
 
-<code>
+<pre>
 bash> ruby gen_build_index.rb 8
-</code>
+</pre>
 
 outputs
-<code>
+<pre>
 ruby build_index.rb 1 8
 ruby build_index.rb 2 8
 ...
 ruby build_index.rb 8 8
-</code>
+</pre>
 
 can run sequentially in one hit or the output can be split into parts to run in parallel
 
@@ -72,12 +72,12 @@ h3. build similiarity table
 
 generate each of the pairwise generation scripts
 
-<code>
+<pre>
 ruby gen_similiarity_script.rb 8
-</code>
+</pre>
 
 generates the 64 combos of indexes to compare
-<code>
+<pre>
 ruby build_similiar_items.rb 1 1
 ruby build_similiar_items.rb 1 2
 ruby build_similiar_items.rb 1 3
@@ -92,5 +92,5 @@ ruby build_similiar_items.rb 3 1
 ...
 ruby build_similiar_items.rb 7 8
 ruby build_similiar_items.rb 8 8
-</code>
+</pre>
 
