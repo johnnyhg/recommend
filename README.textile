@@ -1,0 +1,96 @@
+h1. a crack at the "netflix prize":http://www.netflixprize.com/
+
+h2. summary
+
+writing a simple item based recommendation system based on pearson coefficient similarities
+
+h2. setup
+
+h3. make a db
+
+<code>
+mysql> create database netflix;
+mysql> use netflix;
+mysql> create table similarity ( mid1 int, mid2 int, coeff float );
+mysql> create index similarity_m12_idx on similarity (mid1,mid2);
+</code>
+
+h3.choose a dataset
+
+using a local small dataset
+
+<code>
+bash> ln -s test_data_tiny test_data
+or
+bash> ln -s test_data_small test_data
+</code>
+
+using netflix full dataset
+
+first download it from "netflix":http://www.netflixprize.com/
+
+<code>
+bash> ln -s path_to_full_netflix_download test_data
+</code>
+
+h2. running
+
+h3. build indexes
+
+for small datasets it's easy
+
+generate index
+<pre>
+bash> ruby build_index.rb
+</pre>
+
+populate similiarity table in db with all the combos
+<pre>
+bash> ruby build_similiar_items.rb
+</pre>
+
+for datasets that are two big to fit into memory need to break index up into pieces such
+that two pieces fit into memory for comparison
+
+eg break into 8 parts
+
+<pre>
+bash> ruby gen_build_index.rb 8
+</pre>
+
+outputs
+<pre>
+ruby build_index.rb 1 8
+ruby build_index.rb 2 8
+...
+ruby build_index.rb 8 8
+</pre>
+
+can run sequentially in one hit or the output can be split into parts to run in parallel
+
+h3. build similiarity table
+
+generate each of the pairwise generation scripts
+
+<pre>
+ruby gen_similiarity_script.rb 8
+</pre>
+
+generates the 64 combos of indexes to compare
+<pre>
+ruby build_similiar_items.rb 1 1
+ruby build_similiar_items.rb 1 2
+ruby build_similiar_items.rb 1 3
+...
+ruby build_similiar_items.rb 1 8
+ruby build_similiar_items.rb 2 1
+ruby build_similiar_items.rb 2 2
+...
+ruby build_similiar_items.rb 2 8
+ruby build_similiar_items.rb 3 1
+...
+...
+ruby build_similiar_items.rb 7 8
+ruby build_similiar_items.rb 8 8
+</pre>
+
