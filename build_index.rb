@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'read'
 require 'consts'
 require 'serialise'

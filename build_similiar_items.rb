@@ -66,9 +66,12 @@ end
 
 if ARGV.length==2
 	IDX1, IDX2 = ARGV
-else
+elsif ARGV.length==0
 	IDX1 = IDX2 = 1
+else
+    raise "build_similiar_items.rb IDX1=1 IDX2=1"
 end
+
 
 similiarity = Similiarity.new
 similiarity.read_index IDX1, IDX2
