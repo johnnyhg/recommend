@@ -25,6 +25,13 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at"
   end
 
+  create_table "reviews", :force => true do |t|
+    t.integer  "movie_id"
+    t.integer  "review"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "similarity", :id => false, :force => true do |t|
     t.integer "mid1"
     t.integer "mid2"
