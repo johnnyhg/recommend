@@ -17,8 +17,8 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: recommend_development
-  username: root
+  database: netflix
+  username: mat
   password:
   socket: /var/run/mysqld/mysqld.sock
 
@@ -28,15 +28,15 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: recommend_test
-  username: root
+  database: netflix_test
+  username: mat
   password:
   socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql
   encoding: utf8
-  database: recommend_production
-  username: root
+  database: netflix_prod
+  username: mat
   password: 
   socket: /var/run/mysqld/mysqld.sock
