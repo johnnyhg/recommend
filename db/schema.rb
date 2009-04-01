@@ -9,13 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define() do
-
-  create_table "completed_runs", :id => false, :force => true do |t|
-    t.integer "mid"
-  end
-
-  add_index "completed_runs", ["mid"], :name => "completed_runs_idx"
+ActiveRecord::Schema.define(:version => 3) do
 
   create_table "movies", :force => true do |t|
     t.string   "name"
@@ -23,27 +17,14 @@ ActiveRecord::Schema.define() do
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "similarities_calculated"
   end
 
   create_table "reviews", :force => true do |t|
     t.integer  "movie_id"
-    t.integer  "review"
+    t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "similarity", :id => false, :force => true do |t|
-    t.integer "mid1"
-    t.integer "mid2"
-    t.float   "coeff"
-  end
-
-  add_index "similarity", ["mid1", "mid2"], :name => "similarity_m12_idx"
-
-  create_table "similarity2", :id => false, :force => true do |t|
-    t.integer "mid1"
-    t.integer "mid2"
-    t.float   "coeff"
   end
 
 end

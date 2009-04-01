@@ -1,0 +1,15 @@
+<table border=1>
+    <tr><td>movie</td><td>review</td></tr>
+<% @reviews.each do |r| -%>
+    <tr>
+        <td><%= r.movie.name -%></td>
+        <td>
+        <% (0..5).each do |n| -%>
+            <img src="/images/<%= n -%><%= n == r.rating ? '' : '_light'-%>.png"/>            
+        <% end -%>
+        </td>
+    </tr>
+<% end -%>
+</table>
+
+<%= link_to 'give a new review', new_review_url -%> 

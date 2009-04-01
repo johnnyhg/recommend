@@ -1,0 +1,31 @@
+<html>
+<head>
+<script language="JavaScript">
+
+function submitform(rating) {
+    document.review.review_rating.value = rating;    
+    document.review.submit();
+}
+    
+</script>
+</head>
+<body>
+<h1>what is your review for</h1>
+<h2><%= @next_movie_to_review.name -%></h2>
+<% form_for :review, :name => 'review',
+        :url => {:action => :create},
+        :html => {:name => 'review'} do |f| -%>
+
+    <%= f.hidden_field 'movie', :value => @next_movie_to_review.id -%>
+    <%= f.hidden_field :rating -%>
+
+    <% (0..5).each do |n| -%>
+    <a href="javascript: submitform(<%=n-%>)"><img src="/images/<%=n-%>.png" border="0"></a>
+    <% end -%>
+
+<% end -%>
+
+<%= link_to 'view old reviews', reviews_url -%>
+
+</body>
+</html>

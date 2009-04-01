@@ -2,7 +2,7 @@ class CreateReviews < ActiveRecord::Migration
   def self.up
     create_table :reviews do |t|
       t.column :movie_id, :integer
-      t.column :review, :integer
+      t.column :rating, :integer
       t.timestamps
     end
   end
