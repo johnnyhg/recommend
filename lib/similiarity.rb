@@ -1,0 +1,1 @@
+require 'similiarity/coeffs'

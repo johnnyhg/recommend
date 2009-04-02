@@ -1,7 +1,7 @@
 class AddHasCalcdSimiliaritiesToMovies < ActiveRecord::Migration
     
   def self.up
-      add_column :movies, :similarities_calculated, :boolean
+      add_column :movies, :similarities_calculated, :boolean, :default => false      
   end
 
   def self.down
