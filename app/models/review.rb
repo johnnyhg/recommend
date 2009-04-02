@@ -7,6 +7,6 @@ class Review < ActiveRecord::Base
     end
 
     def after_save
-        
+        puts "movie.similarities_calculated=#{movie.similarities_calculated}"    
     end
 end
