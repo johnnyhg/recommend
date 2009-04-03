@@ -1,1 +1,0 @@
-require "#{RAILS_ROOT}/lib/similiarity" # this shouldnt be here, should be in lib somehow (?)
