@@ -1,0 +1,17 @@
+<html>
+<body>
+<table border=1>
+    <%= 'no reviews yet!' if @recommendations.empty? -%> 
+    <% @recommendations.each do |rec| -%>
+        <tr>
+            <td><%= rec[0] -%></td>
+            <td><%= sprintf "%0.2f", rec[1] -%></td>
+        </tr>
+    <% end -%>
+</table>
+
+<%= link_to 'give a new review', new_review_url -%></br>
+<%= link_to 'view old reviews', reviews_url -%>
+
+</body>
+</html>

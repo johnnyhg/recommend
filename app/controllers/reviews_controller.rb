@@ -16,4 +16,10 @@ class ReviewsController < ApplicationController
         Review.create! :movie => movie, :rating => rating
         redirect_to :action => :new
     end
+
+    def destroy
+        Review.find(params['id']).destroy
+        redirect_to :action => :index
+    end
+    
 end
