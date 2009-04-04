@@ -11,6 +11,7 @@ RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 INDEX_FILE = 'index.dat'
+DATA_DIR = RAILS_ROOT + '/test_data_medium'   # if changing run rake data_dir:changed 
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
