@@ -8,16 +8,11 @@ class Review < ActiveRecord::Base
 
     def after_save
         return if movie.similarities_calculated
-        already_calculated_movies = Review.find(:all).collect { |r| r.movie_id }
-        mid1 = movie.id
+        already_calculated_movies = Review.find(:all).collect(&:movie_id)        
         Movie.find(:all).each do |other_movie|
             next if other_movie == movie                # dont compare to self
             next if other_movie.similarities_calculated # dont redo similiarity
-            mid2 = other_movie.id
-            mid1,mid2 = mid2,mid1 if mid1 > mid2 # to make lookup easier
-            similarity = Coeff.pearson_coeff INDEX[mid1], INDEX[mid2]
-            query = "insert into similarities (mid1,mid2,similarity) values (#{mid1},#{mid2},#{similarity});"
-            Movie.connection.execute(query)
+            movie.calc_similarity_to other_movie
         end
         movie.similarities_calculated = true
         movie.save!

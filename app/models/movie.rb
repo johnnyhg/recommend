@@ -28,4 +28,14 @@ class Movie < ActiveRecord::Base
         user_and_rating
     end
 
+    def calc_similarity_to other
+        mid1, mid2 = self.id, other.id
+        similarity = Coeff.pearson_coeff INDEX[mid1], INDEX[mid2]
+        DB.set_similarity mid1, mid2, similarity 
+    end
+
+    def get_similarity_to other
+        DB.get_similarity self.id, other.id
+    end
+
 end

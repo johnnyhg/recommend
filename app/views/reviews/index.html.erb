@@ -1,5 +1,7 @@
+<html>
+<body>
 <table border=1>
-    <tr><td>movie</td><td>review</td></tr>
+    <tr><td>movie</td><td>review</td><td>delete?</td></tr>
 <% @reviews.each do |r| -%>
     <tr>
         <td><%= r.movie.name -%></td>
@@ -8,8 +10,18 @@
             <img src="/images/<%= n -%><%= n == r.rating ? '' : '_light'-%>.png"/>            
         <% end -%>
         </td>
+        <td>
+            <% @destroy_url = url_for :action=>"destroy", :controller=>"reviews", :id => r.id -%>
+            <% form_tag @destroy_url, :method => :delete do |f| -%>
+                <%= submit_tag 'delete' -%>
+            <% end -%>
+        </td>
     </tr>
 <% end -%>
 </table>
 
-<%= link_to 'give a new review', new_review_url -%> 
+<%= link_to 'give a new review', new_review_url -%></br>
+<%= link_to 'see recmommendations', recommendations_url -%>
+
+</body>
+</html>

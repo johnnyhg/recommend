@@ -28,4 +28,10 @@ ActiveRecord::Schema.define(:version => 5) do
     t.datetime "updated_at"
   end
 
+  create_table "similarities", :id => false, :force => true do |t|
+    t.string  "mid1"
+    t.integer "mid2"
+    t.float   "similarity"
+  end
+
 end
