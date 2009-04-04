@@ -25,11 +25,10 @@ class RecommendationsController < ApplicationController
                 similarities_sum += similarity
                 similarities_x_review_sum += similarity * review.rating
 
-#                puts "similarity of #{unseen_movie.name} to #{review.movie.name} "+
-#                        "rating (#{review.rating}) "+
-#                        "is #{similarity}. "+
-#                        "similarities_sum=#{similarities_sum}, " +
-#                        "similarities_x_review_sum=#{similarities_x_review_sum}"
+#                printf "similarity of %30s to %30s (%d) is %+0.3f. ss=%+03.3f sxs=%+03.3f rec=%+03.3f\n",
+#                        unseen_movie.name[0...30], review.movie.name[0...30], review.rating,
+#                        similarity, similarities_sum, similarities_x_review_sum,
+#                        similarities_x_review_sum / similarities_sum
                 
             end
             expected_rating = similarities_x_review_sum / similarities_sum
