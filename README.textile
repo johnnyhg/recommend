@@ -4,7 +4,32 @@ h2. summary
 
 writing a simple item based recommendation system based on pearson coefficient similarities
 
-h2. setup
+h2. hacks
 
 dependant on mysql, sorry
-all db specific stuff in lib/db.rb 
+all db specific stuff in lib/db.rb
+
+h2. setup
+
+choose dataset
+
+h3. tiny dataset
+
+6 movies, 24 revies in total
+edit environment.rb and change DATA_DIR to test_data_tiny
+
+h3. small dataset
+
+10 movies, 9,300 revies in total
+edit environment.rb and change DATA_DIR to test_data_small
+
+h3. big dataset
+
+17,000 movies, 100,000,000 reviews in total
+download netflix data
+edit environment.rb and change DATA_DIR to downloaded data
+
+h3. rebuild index
+
+rake recommend:data_dir_changed
+restart server

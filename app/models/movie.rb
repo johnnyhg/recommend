@@ -30,6 +30,7 @@ class Movie < ActiveRecord::Base
 
     def calc_similarity_to other
         mid1, mid2 = self.id, other.id
+        [mid1,mid2].each { |m| raise "#{m} missing from index?" unless INDEX[m] }
         similarity = Coeff.pearson_coeff INDEX[mid1], INDEX[mid2]
         DB.set_similarity mid1, mid2, similarity 
     end
