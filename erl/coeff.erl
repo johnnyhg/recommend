@@ -1,6 +1,6 @@
 -module(coeff).
-
--compile(export_all).
+-export([pearson/2]).
+%-compile(export_all).
 
 pearson(A,B) ->
     {Sums, NumCommon} = summations(A,B),
