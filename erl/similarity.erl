@@ -13,16 +13,17 @@ get(M1,M2)->
     Similarity = similarity_store:get({M1,M2}),
     case Similarity of
 	record_not_found ->
-	    %io:format("not cached~n"),
+	    io:format("~p ~p ~p not cached~n",[self(),M1,M2]),
 	    Ratings1 = movie_data:ratings(M1),
 	    Ratings2 = movie_data:ratings(M2),
 	    Calculated = coeff:pearson(Ratings1, Ratings2),
 	    similarity_store:set({M1,M2},Calculated),
 	    Calculated;
 	_ ->
-	    %io:format("cached~n"),
+	    io:format("~p ~p ~p cached~n",[self(),M1,M2]),
 	    Similarity
     end.
+
 	    
     
 	    
