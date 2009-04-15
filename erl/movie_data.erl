@@ -1,10 +1,8 @@
 -module(movie_data).
--export([start/0,stop/0,ids/0,title/1,ratings/1,populate_tables/0]).
+-export([start/0,stop/0,ids/0,title/1,ratings/1,populate_tables/0,test/0]).
 %-compile(export_all).
+-include_lib("consts.hrl").
 
--define(TITLES,  "movie_titles").
--define(RATINGS, "movie_ratings").
--define(PATH,    "/home/mat/dev/recommend/test_data_tiny").
 
 start() ->
     dets:open_file(?TITLES, [{file,"movie_titles.dets"}]),
@@ -18,7 +16,7 @@ stop() ->
     
 ids() -> 
     % dets annoying wraps even set matches in a list
-    [ Id || [{Id,_Name}] <- dets:match(?TITLES, '$1')].
+    [ Id || [{Id}] <- dets:match(?TITLES, '$1')].
 
 title(Id) -> 
     util:extract_value(dets:lookup(?TITLES, Id)).
@@ -27,16 +25,17 @@ ratings(Id) ->
     util:extract_value(dets:lookup(?RATINGS, Id)).
 
 populate_tables() ->
-    write_movie_titles(),
+    write_movie_ids(),
     write_movie_ratings().
 
-write_movie_titles() ->
+write_movie_ids() ->
     {ok,B} = file:read_file(?PATH ++ "/movie_titles.txt"),
     Lines = string:tokens(binary_to_list(B), "\n"),
     lists:foreach(
       fun(Line) ->
-	      [Id,_Year,Name] = string:tokens(Line,","),
-	      dets:insert(?TITLES, {list_to_integer(Id),Name})
+	      Tokens = string:tokens(Line,","),
+	      Id = hd(Tokens),
+	      dets:insert(?TITLES, {list_to_integer(Id)})
       end, 
       Lines).
 
