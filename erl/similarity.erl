@@ -24,7 +24,20 @@ get(M1,M2)->
 	    Similarity
     end.
 
-	    
+is_cached(M1,M2) ->
+    Similarity = similarity_store:get({M1,M2}),
+    case Similarity of
+	record_not_found -> false;
+	_ -> true
+    end.
+
+calc_all_for(Mid) ->	        
+    start(),
+    lists:foreach(
+      fun(OtherId) -> get(Mid,OtherId) end,
+      movie_data:ids()
+     ),
+    stop().
     
 	    
 
