@@ -28,9 +28,10 @@ ratings(Id) ->
 % rating files across NumProcesses processes 
 write_movie_ratings() ->
     start(),
-    lists:foreach(fun(Id) -> write_movie_rating(Id) end, ids()), % serial
-    %rpc:pmap({?MODULE,write_movie_rating}, [], ids()).           % pure pmap    
-    %util:parallel_eval_in_chunks(?MODULE,write_movie_rating,?PROCS,read_movie_ids()).
+    dets:delete_all_objects(?RATINGS),
+    %lists:foreach(fun(Id) -> write_movie_rating(Id) end, ids()), % serial
+    %rpc:pmap({?MODULE,write_movie_rating}, [], ids()),           % pure pmap    
+    util:parallel_eval_in_chunks(?MODULE,write_movie_rating,?PROCS,ids()),
     stop().
     
 write_movie_rating(MovieId) -> 

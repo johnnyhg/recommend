@@ -33,14 +33,15 @@ is_cached(M1,M2) ->
     end.
 
 calc_all_for(Mid) ->	        
+    Start = now(),
     start(),
-    %MidRatings = movie_data:ratings(Mid),
     lists:foreach(
       fun(OtherId) -> get(Mid,OtherId) end,
-      %movie_data:ids()
-      lists:sublist(movie_data:ids(),5000)
+      movie_data:ids()
+      %lists:sublist(movie_data:ids(),5000)
      ),
-    stop().
+    stop(),
+    io:format("done for ~p in ~p secs \n",[Mid,timer:now_diff(now(),Start)/1000/1000]).
 
 	    
 

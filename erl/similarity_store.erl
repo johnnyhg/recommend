@@ -7,6 +7,9 @@ start() ->
 stop() ->
     dets:close(?MODULE), ok.
 
+delete_all() ->
+    dets:delete_all_objects(?MODULE), ok.
+
 set({_,_}=Pair,Similarity) ->    
     dets:insert(?MODULE,{ensure_a_less_than_b(Pair),Similarity}).
   
