@@ -1,5 +1,5 @@
 -module(similarity).
--export([start/0, stop/0, get/2, is_cached/2, calc_all_for/1]).
+-export([start/0, stop/0, reset/0, get/2, is_cached/2, calc_all_for/1]).
 %-compile(export_all).
 
 start() ->
@@ -9,15 +9,22 @@ start() ->
 stop() ->
     similarity_store:stop(),
     movie_data:stop().
+
+reset() ->    
+    similarity_store:delete_all(),
+    movie_data:delete_all(),
+    movie_data:write_movie_ratings().
     
-get(M1,M2)->
+get(M1,M2) ->
+    get(M1,M2,fun() -> movie_data:ratings(M1) end).
+		     
+get(M1,M2,M1RatingsEval) ->
     Similarity = similarity_store:get({M1,M2}),
     case Similarity of
 	record_not_found ->
 	    %io:format("~p ~p ~p not cached~n",[self(),M1,M2]),
-	    Ratings1 = movie_data:ratings(M1),
 	    Ratings2 = movie_data:ratings(M2),
-	    Calculated = coeff:pearson(Ratings1, Ratings2),
+	    Calculated = coeff:pearson(M1RatingsEval(), Ratings2),
 	    similarity_store:set({M1,M2},Calculated),
 	    Calculated;
 	_ ->
@@ -35,8 +42,9 @@ is_cached(M1,M2) ->
 calc_all_for(Mid) ->	        
     Start = now(),
     start(),
+    M1Ratings = movie_data:ratings(Mid),
     lists:foreach(
-      fun(OtherId) -> get(Mid,OtherId) end,
+      fun(OtherId) -> get(Mid,OtherId,fun() -> M1Ratings end) end,
       movie_data:ids()
       %lists:sublist(movie_data:ids(),5000)
      ),

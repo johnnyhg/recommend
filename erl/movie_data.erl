@@ -1,16 +1,17 @@
 -module(movie_data).
--export([start/0,stop/0,ids/0,ratings/1,
+-export([start/0,stop/0,delete_all/0,ids/0,ratings/1,
 	 write_movie_ratings/0,write_movie_rating/1]).
 %-compile(export_all).
 -include_lib("consts.hrl").
 
 start() ->
-    dets:open_file(?RATINGS,[{file,"movie_ratings.dets"}]),
-    ok.
+    dets:open_file(?RATINGS,[{file,"movie_ratings.dets"}]), ok.
 
 stop() ->
-    dets:close(?RATINGS),
-    ok.
+    dets:close(?RATINGS), ok.
+
+delete_all() ->
+    dets:delete_all_objects(?RATINGS), ok.
 
 ids() -> 
     {ok,B} = file:read_file(?PATH ++ "/movie_titles.txt"),

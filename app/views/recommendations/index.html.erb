@@ -4,8 +4,9 @@
     <%= 'no reviews yet!' if @recommendations.empty? -%> 
     <% @recommendations.each do |rec| -%>
         <tr>
-            <td><%= rec[0] -%></td>
-            <td><%= sprintf "%0.2f", rec[1] -%></td>
+            <td><%= rec[:netflix_id] -%></td>
+            <td><%= rec[:name] -%></td>
+            <td><%= sprintf "%0.2f", rec[:rating] -%></td>
         </tr>
     <% end -%>
 </table>

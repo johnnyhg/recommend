@@ -33,9 +33,9 @@ class RecommendationsController < ApplicationController
             end
             expected_rating = similarities_x_review_sum / similarities_sum
             puts "so expected rating for #{unseen_movie.name} is #{expected_rating}"
-            [unseen_movie.name, expected_rating]
+            { :name => unseen_movie.name, :rating => expected_rating, :netflix_id => unseen_movie.netflix_id }
         end
-        @recommendations.sort! {|r1,r2| r2[1]<=>r1[1]}
+        @recommendations.sort! {|r1,r2| r2[:rating]<=>r1[:rating]}
     end
 
 end
