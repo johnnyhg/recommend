@@ -1,5 +1,5 @@
 -module(util).
--export([extract_value/1,split/2,parallel_eval_in_chunks/4,apply_all/3,next_line/1]).
+-export([extract_value/1,split/2,parallel_eval_in_chunks/4,apply_all/3,next_line/1,time/3]).
 %-compile(export_all).
 
 extract_value(Record) ->
@@ -42,7 +42,8 @@ next_line(<<"\n",Rest/binary>>, Collected) ->
 next_line(<<C:1/binary,Rest/binary>>, Collected) ->
     next_line(Rest, [C|Collected]). 
 
-
-
-
+time(M,F,A) ->    
+    Start = now(),
+    apply(M,F,A),
+    io:format("~p s\n",[timer:now_diff(now(),Start)/1000/1000]).
 
